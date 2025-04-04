@@ -3,18 +3,14 @@ from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 import getpass
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 
 load_dotenv()
-os.environ.get("GOOGLE_API_KEY")
 
 if "GOOGLE_API_KEY" not in os.environ:
     os.environ["GOOGLE_API_KEY"] = getpass.getpass("Enter your OpenAI API key: ")
 
-# Inicializamos el modelo Gemini
 
-# model="models/gemini-1.5-flash",
-
-# Crear una plantilla de prompt para traducciones
 prompt = ChatPromptTemplate.from_messages(
     [
         (
@@ -24,6 +20,8 @@ prompt = ChatPromptTemplate.from_messages(
         ("human", "{input}"),
     ]
 )
+
+# model="models/gemini-1.5-flash",
 llm = ChatGoogleGenerativeAI(
     model="gemini-1.5-pro",
     temperature=0,
@@ -33,20 +31,18 @@ llm = ChatGoogleGenerativeAI(
     # other params...
 )
 
-# Encadenar la plantilla con el modelo de Google AI
-chain = prompt | llm
+parser = StrOutputParser()
+chain = prompt | llm | parser
 
-pregunta = input("¿Qué querés que el llm traduzca? ")
+question = input("¿Qué querés que el llm traduzca? ")
 
-# Invocar la cadena con parámetros específicos
-
-respuesta = chain.invoke(
+response = chain.invoke(
     {
         "input_language": "Spanish",
         "output_language": "English",
-        "input": pregunta,
+        "input": question,
     }
 )
 
 print("\n🔮 Llm responde:")
-print(respuesta)
+print(response)
