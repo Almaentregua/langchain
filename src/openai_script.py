@@ -6,6 +6,8 @@ from langchain_core.messages import (AIMessage, HumanMessage, SystemMessage,
                                      trim_messages)
 from langchain_openai import ChatOpenAI
 
+from constants.models.openai import GPT_TURBO_3_5
+
 load_dotenv()
 
 if "OPENAI_API_KEY" not in os.environ:
@@ -13,7 +15,7 @@ if "OPENAI_API_KEY" not in os.environ:
 
 # models
 # gpt-4o
-model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.2)
+model = ChatOpenAI(model=GPT_TURBO_3_5, temperature=0.2)
 
 messages = [
     SystemMessage(content="Eres un asistente útil."),
