@@ -2,7 +2,8 @@ import getpass
 import os
 
 from dotenv import load_dotenv
-from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
+from langchain_core.prompts import (ChatPromptTemplate,
+                                    FewShotChatMessagePromptTemplate)
 from langchain_openai import ChatOpenAI
 
 load_dotenv()
@@ -13,8 +14,8 @@ if "OPENAI_API_KEY" not in os.environ:
 model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.2)
 
 examples = [
-    {'input': '2 🦜 9', 'output': '11'},
-    {'input': '2 🦜 10', 'output': '12'},
+    {"input": "2 🦜 9", "output": "11"},
+    {"input": "2 🦜 10", "output": "12"},
 ]
 
 example_prompt = ChatPromptTemplate.from_messages(
@@ -41,4 +42,3 @@ final_prompt = ChatPromptTemplate.from_messages(
 chain = final_prompt | model
 
 print(chain.invoke({"input": "What is 2 🦜 9?"}).content)
-
