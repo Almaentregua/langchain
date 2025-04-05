@@ -1,3 +1,4 @@
 .env
 .idea
 llm-env
+__pycache__

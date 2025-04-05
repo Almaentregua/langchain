@@ -6,6 +6,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
 
+from constants.models.gemini import GEMINI_PRO_1_5
+
 load_dotenv()
 
 if "GOOGLE_API_KEY" not in os.environ:
@@ -24,7 +26,7 @@ prompt = ChatPromptTemplate.from_messages(
 
 # model="models/gemini-1.5-flash",
 llm = ChatGoogleGenerativeAI(
-    model="gemini-1.5-pro",
+    model=GEMINI_PRO_1_5,
     temperature=0,
     max_tokens=None,
     timeout=None,
